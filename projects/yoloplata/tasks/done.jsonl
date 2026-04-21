@@ -1,0 +1,18 @@
+{"id":"YP-001","title":"Project scaffold — Expo app with navigation and Firebase","assigned_to":"hephaestus","status":"done","completed_at":"2026-04-20T00:00:00Z"}
+{"id":"YP-014","title":"Shared components — ConfirmModal, Toast, theme","assigned_to":"apollo","status":"done","completed_at":"2026-04-20T00:00:00Z"}
+{"id":"YP-003","title":"Auth store — useAuthStore with Zustand","assigned_to":"hephaestus","status":"done","completed_at":"2026-04-20T00:00:00Z"}
+{"id":"YP-005","title":"Group Firestore service and store","assigned_to":"hephaestus","status":"done","completed_at":"2026-04-20T00:00:00Z"}
+{"id":"YP-007","title":"Technique Firestore service and store","assigned_to":"hephaestus","status":"done","completed_at":"2026-04-20T00:00:00Z"}
+{"id":"YP-010","title":"Queue Firestore service and store","assigned_to":"hephaestus","status":"done","completed_at":"2026-04-20T00:00:00Z"}
+{"id":"YP-002","title":"Auth screens — Register and Login","assigned_to":"apollo","status":"done","completed_at":"2026-04-20T00:00:00Z"}
+{"id":"YP-004","title":"Group create and join flow — JoinOrCreateGroupScreen","assigned_to":"apollo","status":"done","completed_at":"2026-04-21T00:00:00Z"}
+{"id":"YP-005-media","title":"Design media attachment model","assigned_to":"daedalus","status":"done","completed_at":"2026-04-21T00:00:00Z"}
+{"id":"YP-006-media","title":"Update types and techniqueService for structured media","assigned_to":"hephaestus","status":"done","completed_at":"2026-04-21T00:00:00Z"}
+{"id":"YP-007-create","title":"Build CreateTechniqueScreen","assigned_to":"apollo","status":"done","completed_at":"2026-04-21T00:00:00Z"}
+{"id":"YP-008-detail","title":"Build TechniqueDetailScreen","assigned_to":"apollo","status":"done","completed_at":"2026-04-21T00:00:00Z"}
+{"id":"YP-009-library","title":"Build LibraryScreen","assigned_to":"apollo","status":"done","completed_at":"2026-04-21T00:00:00Z"}
+{"id":"YP-010-edit","title":"Build EditTechniqueScreen","assigned_to":"apollo","status":"done","completed_at":"2026-04-21T00:00:00Z"}
+{"id":"YP-015","title":"Design Google Sign-In strategy","assigned_to":"daedalus","status":"done","completed_at":"2026-04-21T00:00:00Z"}
+{"id":"YP-016","title":"Implement Google Sign-In in authService","assigned_to":"hephaestus","status":"done","completed_at":"2026-04-21T00:00:00Z"}
+{"id":"YP-017","title":"Add Google Sign-In button to LoginScreen and RegisterScreen","assigned_to":"apollo","status":"done","completed_at":"2026-04-21T00:00:00Z"}
+{"id":"YP-018","title":"Fix LibraryScreen filter chip layout on web","assigned_to":"apollo","status":"done","completed_at":"2026-04-21T00:00:00Z"}

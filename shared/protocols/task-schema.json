@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Task",
+  "description": "Schema for tasks in projects/*/tasks/*.jsonl",
+  "type": "object",
+  "required": ["id", "title", "description", "status", "priority", "created_at", "created_by"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique task ID (e.g., task-001)"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["backlog", "active", "in_review", "done", "blocked"]
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "assigned_to": {
+      "type": ["string", "null"],
+      "description": "Agent ID"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "Agent ID or 'human' or 'system'"
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "depends_on": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Task IDs this task depends on"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "completed_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "review_id": {
+      "type": ["string", "null"],
+      "description": "ID of the review in reviews/*.jsonl"
+    }
+  }
+}

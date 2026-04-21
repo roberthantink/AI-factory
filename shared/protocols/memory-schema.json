@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MemorySchemas",
+  "description": "Schemas for agent memory entries (episodic, semantic, procedural)",
+  "definitions": {
+    "episodic_entry": {
+      "type": "object",
+      "required": ["id", "timestamp", "type", "event", "summary", "outcome"],
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "type": { "type": "string", "enum": ["system", "task", "review", "error", "learning"] },
+        "event": { "type": "string", "description": "Short event name" },
+        "summary": { "type": "string", "description": "What happened" },
+        "context": { "type": "object", "description": "Relevant structured data" },
+        "outcome": { "type": "string", "enum": ["success", "failure", "partial", "pending"] },
+        "related_task": { "type": ["string", "null"] },
+        "related_project": { "type": ["string", "null"] }
+      }
+    },
+    "semantic_entry": {
+      "type": "object",
+      "required": ["id", "timestamp", "category", "fact", "confidence"],
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "category": { "type": "string", "enum": ["identity", "preference", "domain_knowledge", "pattern", "constraint"] },
+        "fact": { "type": "string", "description": "The knowledge statement" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "source": { "type": "string", "description": "Where this was learned from" },
+        "supersedes": { "type": ["string", "null"], "description": "ID of an older entry this replaces" },
+        "expires_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "procedural_entry": {
+      "type": "object",
+      "required": ["id", "timestamp", "category", "procedure"],
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "category": { "type": "string", "enum": ["workflow", "debugging", "optimization", "tool_usage", "pattern"] },
+        "procedure": { "type": "string", "description": "Step-by-step how-to knowledge" },
+        "source": { "type": "string" },
+        "times_used": { "type": "integer", "default": 0 },
+        "last_used": { "type": ["string", "null"], "format": "date-time" },
+        "effectiveness": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

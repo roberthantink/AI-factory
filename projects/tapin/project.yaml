@@ -1,0 +1,33 @@
+project_id: "tapin"
+name: "TapIn"
+description: "A React Native / Expo app for class scheduling and registration. Members browse a weekly schedule, register for classes, and manage their profile. Admins create classes, manage users, and view participant lists."
+status: "active"
+created_at: "2026-04-15T00:00:00Z"
+imported_at: "2026-04-17T00:00:00Z"
+
+assigned_agents:
+  - agent_id: "prometheus"
+    role: "orchestrator"
+  - agent_id: "daedalus"
+    role: "architect"
+  - agent_id: "hephaestus"
+    role: "backend-dev"
+  - agent_id: "apollo"
+    role: "frontend-dev"
+  - agent_id: "athena"
+    role: "reviewer"
+  - agent_id: "argus"
+    role: "qa"
+
+tech_stack:
+  languages: ["typescript"]
+  frameworks: ["react-native", "expo", "react-navigation"]
+  database: "firebase-firestore"
+  infrastructure: ["firebase-auth", "firebase-firestore"]
+  state_management: "zustand"
+  styling: "react-native-stylesheet"
+
+quality_gates:
+  review_required: true
+  tests_required: true
+  min_test_coverage: null

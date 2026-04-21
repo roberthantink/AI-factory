@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AgentHandoff",
+  "description": "Schema for structured handoffs between agents. Written to projects/*/comms/handoffs.jsonl",
+  "type": "object",
+  "required": ["id", "timestamp", "source_agent", "target_agent", "task_id", "summary", "context"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique handoff ID (e.g., ho-001)"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_agent": {
+      "type": "string",
+      "description": "Agent ID of the agent handing off"
+    },
+    "target_agent": {
+      "type": "string",
+      "description": "Agent ID receiving the handoff"
+    },
+    "task_id": {
+      "type": "string",
+      "description": "The task being handed off or related to"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief description of what's being handed off and why"
+    },
+    "context": {
+      "type": "object",
+      "description": "Structured context the receiving agent needs",
+      "properties": {
+        "what_was_done": { "type": "string" },
+        "what_remains": { "type": "string" },
+        "blockers": { "type": "array", "items": { "type": "string" } },
+        "key_files": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "acknowledged", "completed"],
+      "default": "pending"
+    }
+  }
+}

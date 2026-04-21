@@ -1,0 +1,49 @@
+# =============================================================================
+# AI Factory — Global Configuration
+# =============================================================================
+
+factory:
+  name: "ai-factory"
+  version: "0.1.0"
+  log_level: "INFO"
+
+# ── Model defaults ──────────────────────────────────────────────────────────
+models:
+  default: "claude-sonnet-4-20250514"
+  fallback: "claude-haiku-4-5-20251001"
+  max_tokens: 8192
+  temperature: 0.3
+
+# ── API ─────────────────────────────────────────────────────────────────────
+api:
+  provider: "anthropic"
+  base_url: "https://api.anthropic.com"
+  retry_attempts: 3
+  retry_delay_seconds: 2
+  timeout_seconds: 120
+
+# ── Memory defaults ─────────────────────────────────────────────────────────
+memory:
+  compaction:
+    enabled: true
+    interval_hours: 24
+    max_episodic_entries: 500
+    summary_batch_size: 50
+  conflict_resolution:
+    strategy: "newest_wins"
+    staleness_threshold_days: 30
+  default_tier: "L1"
+
+# ── Orchestrator ────────────────────────────────────────────────────────────
+orchestrator:
+  max_concurrent_agents: 5
+  task_poll_interval_seconds: 10
+  health_check_interval_seconds: 60
+  review_required: true
+
+# ── Git integration ─────────────────────────────────────────────────────────
+git:
+  auto_branch: true
+  branch_prefix: "agent/"
+  auto_commit: true
+  commit_prefix: "[ai-factory]"

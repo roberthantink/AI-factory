@@ -1,0 +1,73 @@
+# =============================================================================
+# Memory Tiers — Context Loading Rules
+# =============================================================================
+# L0 = Always loaded (agent identity + current task)
+# L1 = Project context (conventions, recent decisions, agent memory)
+# L2 = Deep context (semantic search over history, cross-project knowledge)
+
+tiers:
+  L0:
+    description: "Core identity + current task. Always present."
+    sources:
+      - type: "agent_config"
+        path: "agents/{agent_id}/agent.yaml"
+        fields: ["role", "system_prompt", "specialization"]
+      - type: "agent_state"
+        path: "agents/{agent_id}/state.json"
+      - type: "task_detail"
+        path: "projects/{project_id}/tasks/active.jsonl"
+        filter: "assigned_to == {agent_id}"
+    max_tokens: 2000
+
+  L1:
+    description: "Project context for active work."
+    includes: ["L0"]
+    sources:
+      - type: "project_conventions"
+        path: "projects/{project_id}/workspace/.ai/conventions.md"
+      - type: "recent_decisions"
+        path: "projects/{project_id}/workspace/.ai/decisions.md"
+        limit: 20
+      - type: "agent_semantic_memory"
+        path: "agents/{agent_id}/memory/semantic.jsonl"
+        limit: 50
+      - type: "agent_procedural_memory"
+        path: "agents/{agent_id}/memory/procedural.jsonl"
+        limit: 20
+      - type: "handoff_context"
+        path: "projects/{project_id}/comms/handoffs.jsonl"
+        filter: "target_agent == {agent_id}"
+        limit: 5
+    max_tokens: 6000
+
+  L2:
+    description: "Deep context via semantic search."
+    includes: ["L1"]
+    sources:
+      - type: "agent_episodic_memory"
+        path: "agents/{agent_id}/memory/episodic.jsonl"
+        retrieval: "semantic_search"
+        query: "{current_task_description}"
+        limit: 10
+      - type: "project_knowledge"
+        path: "projects/{project_id}/memory/knowledge.jsonl"
+        retrieval: "semantic_search"
+        query: "{current_task_description}"
+        limit: 15
+      - type: "project_timeline"
+        path: "projects/{project_id}/memory/timeline.jsonl"
+        limit: 30
+      - type: "cross_project_knowledge"
+        path: "shared/knowledge/"
+        retrieval: "semantic_search"
+        query: "{current_task_description}"
+        limit: 10
+      - type: "review_history"
+        path: "projects/{project_id}/reviews/completed.jsonl"
+        limit: 10
+    max_tokens: 12000
+
+retrieval:
+  embedding_model: "text-embedding-3-small"
+  similarity_threshold: 0.7
+  fallback: "keyword"

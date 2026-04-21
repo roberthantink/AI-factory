@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Review",
+  "description": "Schema for code reviews in projects/*/reviews/*.jsonl",
+  "type": "object",
+  "required": ["id", "timestamp", "task_id", "author_agent", "reviewer_agent", "verdict"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique review ID (e.g., rev-001)"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "author_agent": {
+      "type": "string",
+      "description": "Agent who wrote the code"
+    },
+    "reviewer_agent": {
+      "type": "string",
+      "description": "Agent performing the review. Must differ from author_agent."
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["approved", "rejected", "changes_requested"]
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": { "type": "string" },
+          "line": { "type": ["integer", "null"] },
+          "severity": { "type": "string", "enum": ["nit", "suggestion", "important", "blocking"] },
+          "comment": { "type": "string" }
+        }
+      }
+    },
+    "summary": {
+      "type": "string",
+      "description": "Overall review summary"
+    }
+  }
+}

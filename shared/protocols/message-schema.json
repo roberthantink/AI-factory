@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AgentMessage",
+  "description": "Schema for inter-agent messages. Written to projects/*/comms/channels.jsonl",
+  "type": "object",
+  "required": ["id", "timestamp", "from_agent", "to_agent", "type", "content"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique message ID (e.g., msg-001)"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "from_agent": {
+      "type": "string"
+    },
+    "to_agent": {
+      "type": "string",
+      "description": "Target agent ID, or 'all' for broadcast"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["question", "answer", "status_update", "blocker", "fyi", "review_request"],
+      "description": "Message category"
+    },
+    "content": {
+      "type": "string",
+      "description": "The message body"
+    },
+    "related_task": {
+      "type": ["string", "null"],
+      "description": "Task ID this message relates to"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["low", "normal", "high", "urgent"],
+      "default": "normal"
+    }
+  }
+}
