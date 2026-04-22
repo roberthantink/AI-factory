@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"c:/Projecten/AI Programming/ai-factory\" && git diff --quiet HEAD -- agents/ projects/ shared/ config/ CLAUDE.md .gitignore .mcp.json 2>/dev/null; if [ $? -ne 0 ]; then git add agents/ projects/ shared/ config/ CLAUDE.md .gitignore .mcp.json && git commit -m \"auto: session sync $(date +%Y-%m-%d)\" && git push origin master; fi",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
