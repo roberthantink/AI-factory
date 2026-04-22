@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "day=$(date +%u 2>/dev/null || powershell -Command '(Get-Date).DayOfWeek.value__' 2>/dev/null); if [ \"$day\" = \"6\" ] || [ \"$day\" = \"7\" ]; then echo '{\"systemMessage\": \"SATURDAY/SUNDAY — Weekly calibration day: Before any other work, switch to Athena (Reviewer) role and run the full weekly cross-agent calibration protocol from agents/shared/prompts/calibration-prompt.md. This is mandatory.\"}'; fi",
+            "command": "LAST_CAL=\"c:/Projecten/AI Programming/ai-factory/.claude/last_calibration.txt\"; NOW=$(date +%s); if [ ! -f \"$LAST_CAL\" ]; then echo '{\"systemMessage\": \"WEEKLY CALIBRATION HAS NEVER RUN: Before any other work this session, switch to Athena (Reviewer) role and run the full cross-agent calibration protocol from agents/shared/prompts/calibration-prompt.md. This is mandatory.\"}'; elif [ $((NOW - $(cat \"$LAST_CAL\"))) -gt 604800 ]; then DAYS=$(( (NOW - $(cat \"$LAST_CAL\")) / 86400 )); echo \"{\\\"systemMessage\\\": \\\"WEEKLY CALIBRATION OVERDUE (${DAYS} days since last run): Before any other work this session, switch to Athena (Reviewer) role and run the full cross-agent calibration protocol from agents/shared/prompts/calibration-prompt.md. This is mandatory.\\\"}\"; fi",
             "timeout": 10
           }
         ]
@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"c:/Projecten/AI Programming/ai-factory\" && git diff --quiet HEAD -- agents/ projects/ shared/ config/ CLAUDE.md .gitignore .mcp.json 2>/dev/null; if [ $? -ne 0 ]; then git add agents/ projects/ shared/ config/ CLAUDE.md .gitignore .mcp.json && git commit -m \"auto: session sync $(date +%Y-%m-%d)\" && git push origin master; fi",
+            "command": "cd \"c:/Projecten/AI Programming/ai-factory\" && git diff --quiet HEAD -- agents/ projects/ shared/ config/ CLAUDE.md .gitignore .mcp.json .claude/last_calibration.txt 2>/dev/null; if [ $? -ne 0 ]; then git add agents/ projects/ shared/ config/ CLAUDE.md .gitignore .mcp.json .claude/last_calibration.txt && git commit -m \"auto: session sync $(date +%Y-%m-%d)\" && git push origin master; fi",
             "timeout": 30
           }
         ]

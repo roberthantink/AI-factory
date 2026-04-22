@@ -75,13 +75,18 @@ Append to `agents/athena/memory/episodic.jsonl`:
 }
 ```
 
-### 7. Commit and push
+### 7. Write the calibration timestamp
 
-The Stop hook handles git automatically. But if this is running as a standalone Cron session, explicitly run:
+After completing the calibration run, write the current Unix timestamp to `.claude/last_calibration.txt`. This is how the SessionStart hook knows the calibration has run — without this file being updated, the hook will keep prompting on every session start.
 
+Run:
 ```bash
-cd "c:/Projecten/AI Programming/ai-factory" && git add agents/ && git commit -m "chore: weekly calibration $(date +%Y-%m-%d)" && git push origin master
+date +%s > "c:/Projecten/AI Programming/ai-factory/.claude/last_calibration.txt"
 ```
+
+### 8. Commit and push
+
+The Stop hook handles git automatically and includes `last_calibration.txt` in the commit. No manual push needed.
 
 ### Notes
 

@@ -108,11 +108,13 @@ The Stop hook then automatically commits and pushes all new procedural rules to 
 
 **Do not wait for the user to ask.** Run consolidation before wrapping up every session.
 
-### Layer 3: Weekly cross-agent calibration (Saturdays, automated via Cron)
+### Layer 3: Weekly cross-agent calibration (automatic, session-triggered)
 
-A durable Cron fires every Saturday at 08:03. When it fires, switch to **Athena** role and follow the full protocol in `agents/shared/prompts/calibration-prompt.md`.
+A SessionStart hook checks `.claude/last_calibration.txt` on every session start. If the file is missing or older than 7 days, Claude is prompted to run calibration before any other work — regardless of which day it is. A missed Saturday is automatically caught on the next session.
 
-What it does: reads ALL agents' procedural memories, finds contradictions and cross-agent patterns, updates procedural.jsonl files across agents, logs the calibration run.
+When triggered, switch to **Athena** role and follow the full protocol in `agents/shared/prompts/calibration-prompt.md`.
+
+What it does: reads ALL agents' procedural memories, finds contradictions and cross-agent patterns, updates procedural.jsonl files across agents, logs the run, and writes a new timestamp to `.claude/last_calibration.txt` to reset the 7-day clock.
 
 ## Constraints
 
