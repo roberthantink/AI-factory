@@ -1,5 +1,16 @@
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "day=$(date +%u 2>/dev/null || powershell -Command '(Get-Date).DayOfWeek.value__' 2>/dev/null); if [ \"$day\" = \"6\" ] || [ \"$day\" = \"7\" ]; then echo '{\"systemMessage\": \"SATURDAY/SUNDAY — Weekly calibration day: Before any other work, switch to Athena (Reviewer) role and run the full weekly cross-agent calibration protocol from agents/shared/prompts/calibration-prompt.md. This is mandatory.\"}'; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [

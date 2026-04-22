@@ -74,6 +74,46 @@ After completing work, append entries to the relevant memory files so future ses
 - `tapin` — Active project. React Native / Expo class scheduling app. Workspace at `projects/tapin/workspace/`.
 - `yoloplata` — Active project. BJJ technique and video instructional aggregator with shared open mat queue. Workspace at `projects/yoloplata/workspace/`.
 
+## Compound Learning — mandatory, no exceptions
+
+The factory improves itself through three automated mechanisms. These are mandatory workflow steps — never skip them.
+
+### Layer 1: Post-task Athena reflection (every task)
+
+Before Prometheus marks any task `done`, switch to **Athena** role and append one entry to the implementing agent's `episodic.jsonl`. Use the schema from `shared/protocols/memory-schema.json`:
+
+```json
+{
+  "id": "ep-XXX",
+  "timestamp": "<ISO 8601>",
+  "type": "review",
+  "event": "<short slug, e.g. fix-chip-wrapping>",
+  "summary": "What was built or changed. What worked well. What to do differently next time.",
+  "context": { "task_id": "<task id>", "files_changed": ["..."] },
+  "outcome": "success | failure | partial",
+  "related_task": "<task id>",
+  "related_project": "<project id or null>"
+}
+```
+
+The implementing agent is the one who did the work: Apollo for UI, Hephaestus for backend, Daedalus for architecture, Argus for QA, Athena for reviews.
+
+### Layer 2: Session-end consolidation (every session)
+
+At the end of every session — when the user signals they are done or before signing off — switch to **Athena** role and follow the full protocol in `agents/shared/prompts/consolidation-prompt.md`.
+
+What it does: reads recent episodic entries per agent, extracts repeating patterns (2+ similar entries), writes new procedural rules to `procedural.jsonl` if not already covered.
+
+The Stop hook then automatically commits and pushes all new procedural rules to GitHub.
+
+**Do not wait for the user to ask.** Run consolidation before wrapping up every session.
+
+### Layer 3: Weekly cross-agent calibration (Saturdays, automated via Cron)
+
+A durable Cron fires every Saturday at 08:03. When it fires, switch to **Athena** role and follow the full protocol in `agents/shared/prompts/calibration-prompt.md`.
+
+What it does: reads ALL agents' procedural memories, finds contradictions and cross-agent patterns, updates procedural.jsonl files across agents, logs the calibration run.
+
 ## Constraints
 
 - Do not touch the Python `orchestrator/` directory — it's for the Python runtime version of this factory. You are the runtime here.
